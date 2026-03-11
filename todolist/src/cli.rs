@@ -34,13 +34,47 @@ pub fn start(){
             list.push(new_task);
             storage::save_task(&list);
             println!("Tache ajoutee avec succes ! (ID : {} )", new_id);
-        }   
+        }
 
         "list" => {
             let tasks = storage::load_tasks();
             println!("----LISTE----");
             println!("tasks: {:#?}", tasks);
             println!("--------------");
+        }
+
+        "remove" => {
+            if args.len() < 3 {
+                println!("Erreur : commande inconnue");
+                return;
+            }
+            let id : usize = match args[2].parse() {
+                Ok(num) => num,
+                Err(_) => {
+                    println!("Erreur : L'id doit etre valide");
+                    return;
+                }
+            };
+
+            storage::delete_task(id);
+            println!("Tache ID: {} supprimée", id);
+        }
+
+        "done" =>{
+            if args.len() < 3 {
+                println!("Erreur : Il manque l'ID de la tâche (ex: cargo run done 1)");
+                return;
+            }
+
+            let id : usize = match args[2].parse() {
+                Ok(num) => num,
+                Err(_) => {
+                    println!("Erreur : L'id doit etre valide");
+                    return;
+                }
+            };
+
+            storage::change_state(id, TaskState::Done);
         }
 
         _ => println!("Erreur : commande inconnue : {}", commande),

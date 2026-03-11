@@ -1,6 +1,6 @@
 //! storage.rs : contient les instructions pour ouvrir un fichier texte pour lire et écrire.
 
-use crate::models::{Task, };
+use crate::models::{Task, TaskState};
 use std::fs;
 
 const FILE_PATH: &str = "todo_list.json";
@@ -33,4 +33,15 @@ pub fn delete_task(id: usize){
     let mut tasks = load_tasks();
     tasks.retain(|task| task.id != id);
     save_task(&tasks);
+}
+
+pub fn change_state(id: usize, new_state: TaskState){
+    let mut tasks = load_tasks();
+    if let Some(task) = tasks.iter_mut().find(|task| task.id == id){
+        task.state = new_state;
+        save_task(&tasks);
+    } else {
+        println!("Erreur : la tache {} n'existe pas", id);
+
+    }
 }
