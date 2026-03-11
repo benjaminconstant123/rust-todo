@@ -35,6 +35,10 @@ pub fn delete_task(id: usize){
     save_task(&tasks);
 }
 
+/// Permet de change le `TaskState` à partir de l'id
+/// # Param
+/// - `id` usize : l'id de la tâche
+/// - `new_state` enum TaskState définie dans `models.rs`
 pub fn change_state(id: usize, new_state: TaskState){
     let mut tasks = load_tasks();
     if let Some(task) = tasks.iter_mut().find(|task| task.id == id){
