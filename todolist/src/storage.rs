@@ -26,6 +26,9 @@ pub fn load_tasks() -> Vec<Task>{
     tasks
 }
 
+/// Permet de supprimer une tâche via sont id.
+/// # Param
+/// - `id` usize : l'id de la tâche
 pub fn delete_task(id: usize){
     let mut tasks = load_tasks();
     tasks.retain(|task| task.id != id);

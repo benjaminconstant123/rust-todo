@@ -1,10 +1,9 @@
 //! cli.rs : permet d'analyser ce que l'utilisateur a tapé
 use crate::storage;
-use crate::models;
 use std::env;
 use crate::models::{Task, TaskState};
 
-
+/// Lance le cli avec les arguments du shell
 pub fn start(){
     //env::args() recup les arguments et les ranges dans le vecteur
     let args : Vec<String> = env::args().collect();
@@ -35,18 +34,15 @@ pub fn start(){
             list.push(new_task);
             storage::save_task(&list);
             println!("Tache ajoutee avec succes ! (ID : {} )", new_id);
-        }
+        }   
 
         "list" => {
             let tasks = storage::load_tasks();
             println!("----LISTE----");
             println!("tasks: {:#?}", tasks);
+            println!("--------------");
         }
 
         _ => println!("Erreur : commande inconnue : {}", commande),
     }
-
-
-
-    println!("Debug CLI : {:?}", args);
 }
