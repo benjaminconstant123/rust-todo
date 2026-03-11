@@ -1,0 +1,1 @@
+//! storage.rs : contient les instructions pour ouvrir un fichier texte pour lire et écrire. 
